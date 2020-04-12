@@ -1,13 +1,14 @@
 class Pista {
-    constructor(ctx) {
+    constructor(ctx, top) {
         this.ctx = ctx;
+        this.top = top;
         this.faixa = new Faixa(ctx);
         this.semaforo1 = new Semaforo(ctx, 5, 10, false, 3);
         this.semaforo2 = new Semaforo(ctx, 5, 10, false);
     }
 
     desenhar() {
-        let top = (ALTURA / 2 - 80);
+        let top = this.top;
         let height = top + 90;
         let linhaLat1 = top;
         let linhaLat2 = height;

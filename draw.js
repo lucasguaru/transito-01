@@ -9,12 +9,16 @@ var draw = {
         ctx.stroke();
     },
     
-    drawRect(x, y, xTo, yTo, lineWidth, color, lineDash) {
+    drawRect(x, y, xTo, yTo, lineWidth, strokeStyle, fillStyle, lineDash) {
         ctx.beginPath();
         ctx.setLineDash(lineDash || [1, 0])
         ctx.lineWidth = lineWidth || 1;
         ctx.rect(x, y, xTo, yTo);
-        ctx.strokeStyle = color || 'black';
+        ctx.strokeStyle = strokeStyle || 'black';
+        if (fillStyle) {
+            ctx.fillStyle = fillStyle || 'white';
+            ctx.fill();
+        }
         ctx.stroke();
     },
     
@@ -26,8 +30,10 @@ var draw = {
         ctx.arc(x, y, raio, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.strokeStyle = strokeStyle || 'black';
-        ctx.fillStyle = fillStyle || 'white';
-        ctx.fill();
+        if (fillStyle) {
+            ctx.fillStyle = fillStyle || 'white';
+            ctx.fill();
+        }
         ctx.stroke();
     }
 };

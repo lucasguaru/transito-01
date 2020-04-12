@@ -32,9 +32,7 @@ class Semaforo {
                 instancia.status = 'VERDE';
                 agendarFechar();
             }, tempoFechado * 1000);
-        }
-
-        
+        }        
     }
 
     desenhar(left, top) {

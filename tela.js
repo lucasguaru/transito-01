@@ -5,7 +5,7 @@ if (LARGURA > 1500) {
     LARGURA = 1500;
 }
 // ALTURA = 800;
-var pista = undefined;
+var cenario = undefined;
 
 function main() {
     canvas = document.createElement("canvas");
@@ -16,7 +16,7 @@ function main() {
     document.body.appendChild(canvas);
     // ctx.scale(2,2);
 
-    pista = new Pista(ctx);
+    cenario = new Cenario(ctx);
 
     roda();
 }
@@ -27,13 +27,14 @@ function roda() {
 }
 function atualiza() {
     frames++;
+    cenario.atualizar();
     // personagem.atualiza();
     // obstaculos.atualiza();
 }
 function desenha() {
     ctx.fillStyle = "#333333";
     ctx.fillRect(0, 0, LARGURA, ALTURA);
-    pista.desenhar();
+    cenario.desenhar();
     // chao.desenha();
     // obstaculos.desenha();
     // personagem.desenha();
