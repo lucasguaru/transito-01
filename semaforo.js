@@ -1,6 +1,10 @@
 class Semaforo {
-    constructor(ctx, tempoAberto, tempoFechado, iniciarAberto, lag) {
+    constructor(ctx, tempoAberto, tempoFechado, iniciarAberto, lag, left, top) {
         this.ctx = ctx;
+        this.left = left;
+        this.top = top;
+        this.width = 24;
+        this.height = 64;
         this.tempoAberto = tempoAberto;
         this.tempoFechado = tempoFechado;
         this.iniciarAberto = iniciarAberto;
@@ -35,8 +39,12 @@ class Semaforo {
         }        
     }
 
-    desenhar(left, top) {
-        draw.drawRect(left, top, 24, 64, 1, 'white');
+    desenhar() {
+        let left = this.left;
+        let top = this.top;
+        let width = this.width;
+        let height = this.height;
+        draw.drawRect(left, top, width, height, 1, 'white');
         
         if (this.status == 'VERMELHO') {
             draw.drawCircle(left + 12, top + 12, 7, 1, 'black', 'red');

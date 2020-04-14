@@ -4,11 +4,12 @@ class Cenario {
         let top = (ALTURA / 2 - 80);
         this.top = top;
         this.pista = new Pista(ctx, top);
+        this.pista.semaforos
         this.carros = [];
         this.maxSpeed = 2;
         this.contFrames = 0;
-        this.maxFramesMinimo = 20;
-        this.maxFramesMaximo = 30;
+        this.maxFramesMinimo = 15;
+        this.maxFramesMaximo = 15;
         this.maxFrames = this.maxFramesMinimo + Math.floor(Math.random() * this.maxFramesMaximo);
         this.pistas = [[], [], []];
     }
@@ -16,6 +17,21 @@ class Cenario {
     removerCarro(carro, idPista) {
         let carros = this.pistas[idPista];
         carros.shift();
+    }
+
+    getProximoSemaforo(carro, dist) {
+        dist = dist || 50;
+        let semaforos = this.pista.semaforos;
+        let semaforo = null;
+        for (let i = 0; i < semaforos.length; i++) {
+            let semaforoTemp = semaforos[i];
+            let distCalc = semaforoTemp.left + semaforoTemp.width - (carro.left + carro.width);
+            let temDist = distCalc > 0 && distCalc <= dist;
+            if (temDist && (!semaforo || semaforoTemp.left < semaforo.left)) {
+                semaforo = semaforoTemp;
+            }
+        }
+        return semaforo;
     }
 
     distProximoCarro(carro, idPista) {
@@ -34,9 +50,9 @@ class Cenario {
     atualizar() {
         this.contFrames++;
         if (this.contFrames > this.maxFrames) {
-            this.maxSpeed += 0.1;
-            this.maxFramesMinimo--;
-            this.maxFramesMaximo--;
+            // this.maxSpeed += 0.1;
+            // this.maxFramesMinimo--;
+            // this.maxFramesMaximo--;
             if (this.maxFramesMinimo < 10) {
                 this.maxFramesMinimo = 10
             }

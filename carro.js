@@ -13,7 +13,7 @@ class Carro {
         this.height = 15
 
         this.speed = 0;
-        this.aceleration = 0.02;
+        this.aceleration = 0.06;
         this.maxSpeed = maxSpeed + (maxSpeed * Math.random());
     }
 
@@ -22,15 +22,37 @@ class Carro {
             let dist = this.cenario.distProximoCarro(this, this.idPista);
             // console.log(dist);
             this.contFrames = 0;
-            if (dist < 20) {
-                this.muitoPerto = true;
-                this.speed -= this.aceleration * 2;
-                if (this.speed < 0) {
-                    this.speed = 0;
-                }
-                // this.maxSpeed = this.maxSpeed * 0.995;
-            } else {
+            const DIST_BREAK_SEMAFORO = 40;
+            const DIST_BREAK = 30;
+            if (dist > DIST_BREAK) {
                 this.muitoPerto = false;
+                
+                let semaforo = this.cenario.getProximoSemaforo(this, DIST_BREAK_SEMAFORO);
+                if (semaforo) {
+                    let semafDist = semaforo.left + semaforo.width - (this.left + this.width);
+                    if (semafDist < DIST_BREAK_SEMAFORO && this.speed > 0) {
+                        if (semaforo.status == 'VERMELHO') {                    
+                            let mult = (DIST_BREAK_SEMAFORO - semafDist) / 3;
+                            this.speed -= this.aceleration * mult;
+                        }
+                    }
+                }
+            } else {
+                this.muitoPerto = true;
+                if (dist <= 2) {
+                    this.speed = 0;
+                } else {
+                    let mult = (DIST_BREAK - dist) / 3;
+                    this.speed -= this.aceleration * mult;
+                    if (this.speed < 0) {
+                        this.speed = 0;
+                    }
+                }
+            
+            }
+            
+            if (this.speed < 0) {
+                this.speed = 0;
             }
         // }
         if (!this.muitoPerto) {

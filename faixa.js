@@ -1,9 +1,15 @@
 class Faixa {
-    constructor(ctx) {
+    constructor(ctx, left, top, height) {
         this.ctx = ctx;
+        this.left = left;
+        this.top = top;
+        this.height = height;
     }
 
-    desenhar(left, top, height) {
+    desenhar() {
+        let left = this.left;
+        let top = this.top;
+        let height = this.height;
         draw.drawLine(left, top + 5, left, height - 5, 8, 'white');
         let faixaLeft = left + 12;
         let faixaRight = left + 80;
