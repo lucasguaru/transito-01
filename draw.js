@@ -35,5 +35,60 @@ var draw = {
             ctx.fill();
         }
         ctx.stroke();
+    },
+
+    drawImage(let, top, width, height, color) {
+        const imgs = new Image();
+        imgs.src = './assets/cars.png'
+
+        switch (color) {
+            case "red":
+                ctx.drawImage(
+                    imgs,
+                    4, 0,
+                    52, 25,
+                    let , top,
+                    width, height
+                )
+                break;
+            case "white":
+                ctx.drawImage(
+                    imgs,
+                    0, 32,
+                    68, 26,
+                    let , top,
+                    width, height
+                )
+                break;
+            case "orange":
+                ctx.drawImage(
+                    imgs,
+                    0, 72,
+                    82, 31,
+                    let , top,
+                    width, height
+                )
+                break;
+            case "brown":
+                ctx.drawImage(
+                    imgs,
+                    0, 116,
+                    72, 38,
+                    let , top,
+                    width, height
+                )
+                break;
+            case "yellow":
+                ctx.drawImage(
+                    imgs,
+                    0, 170,
+                    72, 37,
+                    let , top,
+                    width, height
+                )
+                break;
+            default:
+                break;
+        }
     }
 };

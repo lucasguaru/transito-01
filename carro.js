@@ -5,7 +5,8 @@ class Carro {
         this.idPista = idPista;
         this.left = left;
         this.top = top;
-        this.CAR_COLORS = ['white', 'red', 'green', 'blue', 'lightblue', 'lightgreen'];
+        // this.CAR_COLORS = ['white', 'red', 'green', 'blue', 'lightblue', 'lightgreen'];
+        this.CAR_COLORS = ['white', 'red', 'yellow', 'brown', 'orange'];
         this.cor = this.getRandom(this.CAR_COLORS);
         this.contFrames = 0;
         this.maxFrames = 50;
@@ -69,7 +70,8 @@ class Carro {
     }
 
     desenhar() {
-        draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
+        draw.drawImage(this.left, this.top, this.width, this.height, this.cor);
+        // draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
     }
 
     getRandom(array) {
