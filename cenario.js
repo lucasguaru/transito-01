@@ -66,7 +66,7 @@ class Cenario {
             }
             this.lastIdPista = idPista;
             let distPista = 30;
-            this.pistas[idPista].push(new Carro(this.ctx, this, idPista, 50, this.top + 7 + (distPista * idPista), this.maxSpeed));
+            this.pistas[idPista].push(new Carro(this.ctx, this, idPista, 50, this.top + 4 + (distPista * idPista), this.maxSpeed));
             this.stopAddingCar = true;
             this.maxFrames = this.maxFramesMinimo + Math.floor(Math.random() * this.maxFramesMaximo);
         }

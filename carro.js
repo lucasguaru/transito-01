@@ -10,8 +10,8 @@ class Carro {
         this.cor = this.getRandom(this.CAR_COLORS);
         this.contFrames = 0;
         this.maxFrames = 50;
-        this.width = 40;
-        this.height = 15
+        this.width = 50;
+        this.height = 20
 
         this.speed = 0;
         this.aceleration = 0.06;
