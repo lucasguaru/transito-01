@@ -3,7 +3,8 @@ class Cenario {
         this.ctx = ctx;
         let top = (ALTURA / 2 - 80);
         this.top = top;
-        this.pista = new Pista(ctx, top);
+        this.qtdePistas = 3;
+        this.pista = new Pista(ctx, top, this.qtdePistas, [390, 1000, 1320]);
         this.pista.semaforos
         this.carros = [];
         this.maxSpeed = 2;
@@ -11,7 +12,10 @@ class Cenario {
         this.maxFramesMinimo = 15;
         this.maxFramesMaximo = 15;
         this.maxFrames = this.maxFramesMinimo + Math.floor(Math.random() * this.maxFramesMaximo);
-        this.pistas = [[], [], []];
+        this.pistas = [];
+        for (let i = 0; i < this.qtdePistas; i++) {
+            this.pistas.push([]);
+        }
     }
 
     removerCarro(carro, idPista) {
@@ -60,9 +64,9 @@ class Cenario {
                 this.maxFramesMaximo = 10
             }
             this.contFrames = 0;
-            let idPista = Math.floor(Math.random() * 3);
+            let idPista = Math.floor(Math.random() * this.qtdePistas);
             while (idPista == this.lastIdPista) {
-                idPista = Math.floor(Math.random() * 3);
+                idPista = Math.floor(Math.random() * this.qtdePistas);
             }
             this.lastIdPista = idPista;
             let distPista = 30;

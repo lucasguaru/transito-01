@@ -90,5 +90,27 @@ var draw = {
             default:
                 break;
         }
+    },
+    
+
+    drawCar(left, top, width, height, color) {
+        const imgs = new Image();
+        imgs.src = './assets/cars.png'
+
+        let cars = {
+            "red": [4, 0, 52, 25],
+            "white": [0, 32, 68, 26],
+            "orange": [0, 72, 82, 31],
+            "brown": [0, 116, 72, 38],
+            "yellow": [0, 170, 72, 37]
+        };
+
+        let car = cars[color];
+
+        ctx.drawImage(
+            imgs,
+            car[0], car[1], car[2], car[3],
+            left, top, width, height
+        )
     }
 };

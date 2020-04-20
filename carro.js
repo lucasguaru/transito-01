@@ -70,7 +70,7 @@ class Carro {
     }
 
     desenhar() {
-        draw.drawImage(this.left, this.top, this.width, this.height, this.cor);
+        draw.drawCar(this.left, this.top, this.width, this.height, this.cor);
         // draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
     }
 
