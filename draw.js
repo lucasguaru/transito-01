@@ -93,7 +93,7 @@ var draw = {
     },
     
 
-    drawCar(left, top, width, height, color) {
+    drawCar(left, top, width, height, color, speed, dist) {
         const imgs = new Image();
         imgs.src = './assets/cars.png'
 
@@ -112,5 +112,19 @@ var draw = {
             car[0], car[1], car[2], car[3],
             left, top, width, height
         )
+
+        ctx.font = "12px Arial";
+        ctx.fillStyle = 'white';
+        let speedText = speed + "";
+        if (speedText.length > 5) {
+            speedText = speedText.substr(0, 5);
+        }
+        
+        let distText = (dist || "") + "";
+        if (distText.length > 5) {
+            distText = distText.substr(0, 5);
+        }
+        speedText += " | " + distText;
+        ctx.fillText(speedText, left, top + 10);
     }
 };

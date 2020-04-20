@@ -25,18 +25,38 @@ class Carro {
             this.contFrames = 0;
             const DIST_BREAK_SEMAFORO = 40;
             const DIST_BREAK = 30;
+            this.sinalFechado = false;
             if (dist > DIST_BREAK) {
                 this.muitoPerto = false;
                 
                 let semaforo = this.cenario.getProximoSemaforo(this, DIST_BREAK_SEMAFORO);
                 if (semaforo) {
                     let semafDist = semaforo.left + semaforo.width - (this.left + this.width);
-                    if (semafDist < DIST_BREAK_SEMAFORO && this.speed > 0) {
-                        if (semaforo.status == 'VERMELHO') {                    
-                            let mult = (DIST_BREAK_SEMAFORO - semafDist) / 3;
-                            this.speed -= this.aceleration * mult;
+                    this.semafDist = semafDist;
+                    if (semafDist < DIST_BREAK_SEMAFORO) {
+                        if (semaforo.status == 'VERMELHO') {
+                            this.sinalFechado = true;
+                            if (this.speed > 0) {
+                                let mult = (DIST_BREAK_SEMAFORO - semafDist) / 3;
+                                let desaceleracao = this.aceleration * mult;
+                                this.speed -= desaceleracao;
+                            }
+                            // if (this.speed <= 0.2) {
+                            //     this.speed = 0;
+                            // }
                         }
                     }
+                    // if (semafDist < DIST_BREAK_SEMAFORO && this.speed > 0) {
+                    //     if (semaforo.status == 'VERMELHO') {
+                    //         this.sinalFechado = true;
+                    //         let mult = (DIST_BREAK_SEMAFORO - semafDist) / 3;
+                    //         let desaceleracao = this.aceleration * mult;
+                    //         this.speed -= desaceleracao;
+                    //         if (this.speed <= 0.2) {
+                    //             this.speed = 0;
+                    //         }
+                    //     }
+                    // }
                 }
             } else {
                 this.muitoPerto = true;
@@ -56,7 +76,7 @@ class Carro {
                 this.speed = 0;
             }
         // }
-        if (!this.muitoPerto) {
+        if (!this.muitoPerto  && !this.sinalFechado) {
             this.speed += this.aceleration;
         }
         // this.speed = 0.3;
@@ -70,7 +90,7 @@ class Carro {
     }
 
     desenhar() {
-        draw.drawCar(this.left, this.top, this.width, this.height, this.cor);
+        draw.drawCar(this.left, this.top, this.width, this.height, this.cor, this.speed, this.semafDist);
         // draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
     }
 
