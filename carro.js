@@ -21,6 +21,7 @@ class Carro {
     atualizar() {
         // if (this.contFrames++ > this.maxFrames) {
             let dist = this.cenario.distProximoCarro(this, this.idPista);
+            this.dist = dist;
             // console.log(dist);
             this.contFrames = 0;
             const DIST_BREAK_SEMAFORO = 40;
@@ -32,7 +33,9 @@ class Carro {
                 let semaforo = this.cenario.getProximoSemaforo(this, DIST_BREAK_SEMAFORO);
                 if (semaforo) {
                     let semafDist = semaforo.left + semaforo.width - (this.left + this.width);
-                    this.semafDist = semafDist;
+                    if (semafDist < this.dist) {
+                        this.dist = semafDist;
+                    }
                     if (semafDist < DIST_BREAK_SEMAFORO) {
                         if (semaforo.status == 'VERMELHO') {
                             this.sinalFechado = true;
@@ -41,22 +44,8 @@ class Carro {
                                 let desaceleracao = this.aceleration * mult;
                                 this.speed -= desaceleracao;
                             }
-                            // if (this.speed <= 0.2) {
-                            //     this.speed = 0;
-                            // }
                         }
                     }
-                    // if (semafDist < DIST_BREAK_SEMAFORO && this.speed > 0) {
-                    //     if (semaforo.status == 'VERMELHO') {
-                    //         this.sinalFechado = true;
-                    //         let mult = (DIST_BREAK_SEMAFORO - semafDist) / 3;
-                    //         let desaceleracao = this.aceleration * mult;
-                    //         this.speed -= desaceleracao;
-                    //         if (this.speed <= 0.2) {
-                    //             this.speed = 0;
-                    //         }
-                    //     }
-                    // }
                 }
             } else {
                 this.muitoPerto = true;
@@ -90,7 +79,7 @@ class Carro {
     }
 
     desenhar() {
-        draw.drawCar(this.left, this.top, this.width, this.height, this.cor, this.speed, this.semafDist);
+        draw.drawCar(this.left, this.top, this.width, this.height, this.cor, this.speed, this.dist);
         // draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
     }
 
