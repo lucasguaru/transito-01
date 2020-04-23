@@ -12,7 +12,7 @@ class Pista {
         //arrSemaroforos tem os X's de onde os semaforos serao colorados
         for (let i = 0; i < arrSemaforos.length; i++) {
             const semaforoCfg = arrSemaforos[i];
-            this.semaforos.push(new Semaforo(ctx, tempoSemaforo[i][0], tempoSemaforo[i][1], true, tempoSemaforo[i][2], semaforoCfg, 196));
+            this.semaforos.push(new Semaforo(ctx, tempoSemaforo[i][0], tempoSemaforo[i][1], true, tempoSemaforo[i][2], semaforoCfg, top - 80));
             this.faixas.push(new Faixa(ctx, semaforoCfg + 40, top, top + 90));
         }
     }

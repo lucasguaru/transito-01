@@ -6,6 +6,7 @@ if (LARGURA > 1500) {
 }
 // ALTURA = 800;
 var cenario = undefined;
+var pause = false;
 
 function main() {
     canvas = document.createElement("canvas");
@@ -22,8 +23,10 @@ function main() {
     roda();
 }
 function roda() {
-    atualiza();
-    desenha();
+    if (!pause) {
+        atualiza();
+        desenha();
+    }
     window.requestAnimationFrame(roda);
 }
 function atualiza() {
@@ -33,6 +36,7 @@ function atualiza() {
     // obstaculos.atualiza();
 }
 function desenha() {
+    
     ctx.fillStyle = "#333333";
     ctx.fillRect(0, 0, LARGURA, ALTURA);
     cenario.desenhar();
@@ -43,3 +47,7 @@ function desenha() {
 }
 
 main();
+
+document.body.addEventListener("mousedown", function() {
+    pause = !pause;
+});

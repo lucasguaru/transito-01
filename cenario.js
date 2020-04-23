@@ -5,9 +5,8 @@ class Cenario {
         this.top = top;
         this.qtdePistas = 3;
         this.pista = new Pista(ctx, top, this.qtdePistas, [390, 1000, 1320]);
-        this.pista.semaforos
         this.carros = [];
-        this.maxSpeed = 2;
+        this.maxSpeed = 1;
         this.contFrames = 0;
         this.maxFramesMinimo = 15;
         this.maxFramesMaximo = 15;
