@@ -125,6 +125,6 @@ var draw = {
             distText = distText.substr(0, 5);
         }
         speedText += " | " + distText;
-        ctx.fillText(speedText, left, top + 10);
+        // ctx.fillText(speedText, left, top + 10);
     }
 };

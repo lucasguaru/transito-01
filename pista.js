@@ -1,3 +1,4 @@
+var ESPACO_ENTRE_PISTAS = 30;
 class Pista {
     constructor(ctx, top, qtdeFaixas, arrSemaforos) {
         this.ctx = ctx;
@@ -17,7 +18,6 @@ class Pista {
     }
 
     desenhar() {
-        var ESPACO_ENTRE_PISTAS = 30;
         let top = this.top;
         let height = top + ESPACO_ENTRE_PISTAS * this.qtdeFaixas;
         let linhaLat1 = top;

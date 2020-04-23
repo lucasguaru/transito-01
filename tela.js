@@ -13,6 +13,7 @@ function main() {
     canvas.height = ALTURA;
     canvas.style.border = "1px solid #000";
     ctx = canvas.getContext("2d");
+    // ctx.scale(0.7,0.7);
     document.body.appendChild(canvas);
     // ctx.scale(2,2);
 

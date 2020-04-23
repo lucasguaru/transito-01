@@ -16,6 +16,19 @@ class Cenario {
         for (let i = 0; i < this.qtdePistas; i++) {
             this.pistas.push([]);
         }
+        this.sensores1 = new Sensores(ctx, this, this.qtdePistas, 400, 520, top);
+        this.sensores2 = new Sensores(ctx, this, this.qtdePistas, 520, 1050, top);
+    }
+
+    getCarros(x0, x1) {
+        let carros = [];
+        this.pistas.forEach(pista => {
+            let carrosTemp = pista.filter(carro => temColisaoX(carro, x0, x1));
+            // let carrosTemp = pista.filter(carro => (carro.left >= x0 && carro.left <= x1) || ((carro.left + carro.width) >= x0 && (carro.left + carro.width) <= x1));
+            carros = carros.concat(carrosTemp);
+        });
+
+        return carros;
     }
 
     removerCarro(carro, idPista) {
@@ -51,6 +64,19 @@ class Cenario {
         }
     }
 
+    podeAdicionarCarro(idPista) {
+        if (this.pistas[idPista].length <= 5) {
+            return true;
+        }
+        if (this.getCarro(idPista, -3).left > 50) {
+            return true;
+        }
+    }
+
+    getCarro(idPista, pos) {
+        return this.pistas[idPista][this.pistas[idPista].length + pos];
+    }
+
     atualizar() {
         this.contFrames++;
         if (this.contFrames > this.maxFrames) {
@@ -65,12 +91,20 @@ class Cenario {
             }
             this.contFrames = 0;
             let idPista = Math.floor(Math.random() * this.qtdePistas);
-            while (idPista == this.lastIdPista) {
-                idPista = Math.floor(Math.random() * this.qtdePistas);
+            if (idPista == this.lastIdPista) {
+                idPista = (idPista + 1) % this.qtdePistas;
             }
             this.lastIdPista = idPista;
             let distPista = 30;
-            this.pistas[idPista].push(new Carro(this.ctx, this, idPista, 50, this.top + 4 + (distPista * idPista), this.maxSpeed));
+            if (this.podeAdicionarCarro(idPista)) {
+                this.pistas[idPista].push(new Carro(this.ctx, this, idPista, 50, this.top + 4 + (distPista * idPista), this.maxSpeed));
+            } else {
+                //Tenta na próxima pista
+                idPista = (idPista + 1) % this.qtdePistas;
+                if (this.podeAdicionarCarro(idPista)) {
+                    this.pistas[idPista].push(new Carro(this.ctx, this, idPista, 50, this.top + 4 + (distPista * idPista), this.maxSpeed));
+                }
+            }
             this.stopAddingCar = true;
             this.maxFrames = this.maxFramesMinimo + Math.floor(Math.random() * this.maxFramesMaximo);
         }
@@ -79,10 +113,14 @@ class Cenario {
                 carro.atualizar();
             })
         });
+        this.sensores1.atualizar();
+        this.sensores2.atualizar();
     }
 
     desenhar() {
         this.pista.desenhar();
+        this.sensores1.desenhar();
+        this.sensores2.desenhar();
         this.pistas.forEach(carros => {
             carros.forEach(carro => {
                 carro.desenhar();
