@@ -1,5 +1,5 @@
 class Sensores {
-    constructor(ctx, cenario, qtdePistas, x0, x1, y) {
+    constructor(ctx, cenario, qtdePistas, x0, x1, y, activeColor, fillActiveColor) {
         this.ctx = ctx;
         this.cenario = cenario;
         this.qtdePistas = qtdePistas;
@@ -17,7 +17,7 @@ class Sensores {
             let newX = x0 + (espacoLateral * i)
             for (let j = 0; j < this.qtdePistas; j++) {
                 let newY = y + (ESPACO_ENTRE_PISTAS * j) + 5;
-                this.sensores.push(new Sensor(ctx, newX, newY));
+                this.sensores.push(new Sensor(ctx, newX, newY, activeColor, fillActiveColor));
             }
         }
         console.log("this.sensores", this.sensores.length);

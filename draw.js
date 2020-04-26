@@ -16,7 +16,7 @@ var draw = {
         ctx.rect(x, y, xTo, yTo);
         ctx.strokeStyle = strokeStyle || 'black';
         if (fillStyle) {
-            ctx.fillStyle = fillStyle || 'white';
+            ctx.fillStyle = fillStyle;
             ctx.fill();
         }
         ctx.stroke();

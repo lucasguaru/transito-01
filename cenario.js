@@ -15,8 +15,8 @@ class Cenario {
         for (let i = 0; i < this.qtdePistas; i++) {
             this.pistas.push([]);
         }
-        this.sensores1 = new Sensores(ctx, this, this.qtdePistas, 400, 520, top);
-        this.sensores2 = new Sensores(ctx, this, this.qtdePistas, 520, 1050, top);
+        this.sensores1 = new Sensores(ctx, this, this.qtdePistas, 420, 540, top, 'yellow', '#555533');
+        this.sensores2 = new Sensores(ctx, this, this.qtdePistas, 530, 1060, top);
     }
 
     getCarros(x0, x1) {
