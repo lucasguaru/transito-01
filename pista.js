@@ -18,6 +18,10 @@ class Pista {
         }
     }
 
+    voltarEstado(qtde) {
+        this.semaforos.forEach(semaforo => semaforo.voltarEstado(qtde));
+    }
+
     atualizar() {
         this.semaforos.forEach(semaforo => semaforo.atualizar());
     }

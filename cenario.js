@@ -19,11 +19,19 @@ class Cenario {
         this.sensores2 = new Sensores(ctx, this, this.qtdePistas, 530, 1060, top);
     }
 
+    voltarEstado(qtde) {
+        this.pistas.forEach(pista => {
+            pista.forEach(carro => carro.voltarEstado(qtde));
+        });
+        this.sensores1.voltarEstado(qtde);
+        this.sensores2.voltarEstado(qtde);
+        this.pista.voltarEstado(qtde);
+    }
+
     getCarros(x0, x1) {
         let carros = [];
         this.pistas.forEach(pista => {
             let carrosTemp = pista.filter(carro => temColisaoX(carro, x0, x1));
-            // let carrosTemp = pista.filter(carro => (carro.left >= x0 && carro.left <= x1) || ((carro.left + carro.width) >= x0 && (carro.left + carro.width) <= x1));
             carros = carros.concat(carrosTemp);
         });
 

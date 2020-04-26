@@ -1,31 +1,33 @@
-class Sensor {
+class Sensor extends Estado {
     constructor(ctx, left, top, activeColor, fillActiveColor) {
+        super();
         this.ctx = ctx;
         this.left = left;
         this.top = top;
         this.width = 20;
         this.height = 20;
-        this.color = '#4d4d4d';
-        this.fillColor = undefined;
         this.activeColor = activeColor || '#ff6666';
         this.fillActiveColor = fillActiveColor || '#553333';
+        this.ativo = false;
     }
 
     desativar() {
-        this.color = '#4d4d4d';
-        this.fillColor = undefined;
+        this.ativo = false;
     }
 
     ativar() {
-        this.color = this.activeColor;
-        this.fillColor = this.fillActiveColor;
+        this.ativo = true;
     }
 
-    atualizar() {
-        // this.contFrames++;
+    atualizar() {       
+        this.manterEstado(FPS);
     }
 
     desenhar() {
-        draw.drawRect(this.left, this.top, this.width, this.height, 1, this.color, this.fillColor);
+        if (this.ativo) {
+            draw.drawRect(this.left, this.top, this.width, this.height, 1, this.activeColor, this.fillActiveColor);
+        } else {
+            draw.drawRect(this.left, this.top, this.width, this.height, 1, '#4d4d4d');
+        }
     }
 }

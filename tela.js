@@ -1,12 +1,15 @@
 var canvas, ctx, ALTURA, LARGURA, frames = 0;
 ALTURA = window.innerHeight - 20;
 LARGURA = window.innerWidth;
+var FPS = 60;
 if (LARGURA > 1500) {
     LARGURA = 1500;
 }
 // ALTURA = 800;
 var cenario = undefined;
 var pause = false;
+var left = 0;
+var right = 0;
 
 function main() {
     canvas = document.createElement("canvas");
@@ -26,6 +29,12 @@ function roda() {
     if (!pause) {
         atualiza();
         desenha();
+    } else {
+        if (left > 0) {
+            cenario.voltarEstado(left);
+            left = 0;
+            desenha();
+        }
     }
     window.requestAnimationFrame(roda);
 }
@@ -50,4 +59,20 @@ main();
 
 document.body.addEventListener("mousedown", function() {
     pause = !pause;
+});
+
+document.body.addEventListener("keydown", function(e) {
+    var event = window.event ? window.event : e;
+    switch(event.keyCode) {
+        case 37:
+            left++;
+            pause = true;
+            break;
+        case 39:
+            right++;
+            pause = true;
+            break;
+        default:
+            break;            
+    }
 });

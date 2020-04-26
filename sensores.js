@@ -8,7 +8,7 @@ class Sensores {
         this.y = y;
         this.velocidadeMedia = 0;
         this.framesVeloMedia = 0;
-        this.FPS = 60;
+        this.contSensoresAtivos = 0;
 
         this.sensores = [];
         let espacoLateral = ESPACO_ENTRE_PISTAS + 10;
@@ -23,13 +23,21 @@ class Sensores {
         console.log("this.sensores", this.sensores.length);
     }
 
+    voltarEstado(qtde) {
+        this.sensores.forEach(sensor => sensor.voltarEstado(qtde));
+    }
+    
+    manterEstado() {
+        this.sensores.forEach(sensor => sensor.manterEstado());
+    }
+
     atualizar() {
         let velocidadeMedia = this.velocidadeMedia;
-        let sensores = [].concat(this.sensores);
+        let sensores = [].concat(this.sensores); //novo array pois os sensores que ja ativaram, sao removidos da lista
         sensores.forEach(sensor => sensor.desativar());
         let carros = this.cenario.getCarros(this.x0, this.x1);
         if (carros.length > 0) {
-            if (this.framesVeloMedia++ > (this.FPS / 2)) {
+            if (this.framesVeloMedia++ > (FPS / 2)) {
                 this.framesVeloMedia = 0;
                 let carrosSpeed = carros.map(carro => carro.speed);
                 let velocidadeSum = carrosSpeed.reduce((total, valor) => {
@@ -37,27 +45,36 @@ class Sensores {
                 });
                 velocidadeMedia = velocidadeSum / carros.length;
                 velocidadeMedia = velocidadeMedia * 10; //para dar mais sensacao de velocidade
+                this.velocidadeMedia = velocidadeMedia;
             }
-
+        } else {
+            this.velocidadeMedia = null;
         }
-        this.velocidadeMedia = velocidadeMedia;
+        let contSensoresAtivos = 0;
         carros.forEach(carro => {
             for (let i = 0; i < sensores.length; i++) {
                 const sensor = sensores[i];
-                if (temColisaoObj(carro, sensor)) {
+                if (temColisaoObj(carro, sensor)) {7
+                        contSensoresAtivos++;7
                     sensor.ativar();
                     sensores.splice(i, 1);
                     i--;
                 }
             }
         });
+        if (this.framesVeloMedia == 0) {
+            this.contSensoresAtivos = contSensoresAtivos;
+        }
 
         this.sensores.forEach(sensor => sensor.atualizar());
     }
 
     desenhar() {
         this.sensores.forEach(sensor => sensor.desenhar());
-        draw.drawText("Velocidade Média: " + this.trunc(this.velocidadeMedia + "", 3), (this.x0 + this.x1) / 2, this.y - 10);
+        if (this.velocidadeMedia != null) {
+            draw.drawText("Velocidade Média: " + this.trunc(this.velocidadeMedia + "", 3), (this.x0 + this.x1) / 2, this.y - 10);
+        }
+        draw.drawText("Ativos: " + this.contSensoresAtivos, ((this.x0 + this.x1) / 2) + 30, this.y + 20 + (this.qtdePistas * ESPACO_ENTRE_PISTAS));
     }
 
     trunc(text, size) {

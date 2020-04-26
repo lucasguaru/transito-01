@@ -1,5 +1,6 @@
-class Carro {
+class Carro extends Estado {
     constructor(ctx, cenario, idPista, left, top, maxSpeed) {
+        super();
         this.ctx = ctx;
         this.cenario = cenario;
         this.idPista = idPista;
@@ -16,14 +17,13 @@ class Carro {
         this.speed = 0;
         this.aceleration = 0.06;
         this.maxSpeed = maxSpeed + (maxSpeed * Math.random());
+        this.estados = [];
     }
 
     atualizar() {
         // if (this.contFrames++ > this.maxFrames) {
             let dist = this.cenario.distProximoCarro(this, this.idPista);
             this.dist = dist;
-            // console.log(dist);
-            this.contFrames = 0;
             const DIST_BREAK_SEMAFORO = 40;
             const DIST_BREAK = 30;
             this.sinalFechado = false;
@@ -76,6 +76,7 @@ class Carro {
         if (this.left > LARGURA - 70) {
             this.cenario.removerCarro(this, this.idPista);
         }
+        this.manterEstado(FPS);
     }
 
     desenhar() {
