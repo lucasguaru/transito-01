@@ -126,5 +126,12 @@ var draw = {
         }
         speedText += " | " + distText;
         // ctx.fillText(speedText, left, top + 10);
+    },
+
+    drawText(text, left, top, color, textAlign) {        
+        ctx.font = "14px Arial";
+        ctx.fillStyle = color || 'white';
+        ctx.textAlign = textAlign || 'center';
+        ctx.fillText(text, left, top);
     }
 };

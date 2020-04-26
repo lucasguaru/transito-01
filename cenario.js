@@ -77,6 +77,7 @@ class Cenario {
     }
 
     atualizar() {
+        this.pista.atualizar();
         this.contFrames++;
         if (this.contFrames > this.maxFrames) {
             // this.maxSpeed += 0.1;

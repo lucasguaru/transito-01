@@ -6,6 +6,9 @@ class Sensores {
         this.x0 = x0;
         this.x1 = x1;
         this.y = y;
+        this.velocidadeMedia = 0;
+        this.framesVeloMedia = 0;
+        this.FPS = 60;
 
         this.sensores = [];
         let espacoLateral = ESPACO_ENTRE_PISTAS + 10;
@@ -21,9 +24,23 @@ class Sensores {
     }
 
     atualizar() {
+        let velocidadeMedia = this.velocidadeMedia;
         let sensores = [].concat(this.sensores);
         sensores.forEach(sensor => sensor.desativar());
         let carros = this.cenario.getCarros(this.x0, this.x1);
+        if (carros.length > 0) {
+            if (this.framesVeloMedia++ > (this.FPS / 2)) {
+                this.framesVeloMedia = 0;
+                let carrosSpeed = carros.map(carro => carro.speed);
+                let velocidadeSum = carrosSpeed.reduce((total, valor) => {
+                    return total + valor;
+                });
+                velocidadeMedia = velocidadeSum / carros.length;
+                velocidadeMedia = velocidadeMedia * 10; //para dar mais sensacao de velocidade
+            }
+
+        }
+        this.velocidadeMedia = velocidadeMedia;
         carros.forEach(carro => {
             for (let i = 0; i < sensores.length; i++) {
                 const sensor = sensores[i];
@@ -40,6 +57,18 @@ class Sensores {
 
     desenhar() {
         this.sensores.forEach(sensor => sensor.desenhar());
+        draw.drawText("Velocidade Média: " + this.trunc(this.velocidadeMedia + "", 3), (this.x0 + this.x1) / 2, this.y - 10);
+    }
+
+    trunc(text, size) {
+        if (!text || text.length <= size) {
+            return text;
+        }
+        text = text.substring(0, size);
+        if (text.substring(text.length - 1) == ".") {
+            return text.substring(0, text.length - 1);
+        }
+        return text;
     }
 }
 

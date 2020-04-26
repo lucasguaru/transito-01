@@ -7,7 +7,8 @@ class Pista {
         this.faixas = [];
         this.semaforos = [];
 
-        let tempoSemaforo = [[10, 4, 5], [10, 4, 2], [8, 4, 0]];
+                        //  [ VERDE, VERMELHO, DELAY ]
+        let tempoSemaforo = [[11, 5, 5], [10, 5, 2], [9, 5, 0]];
 
         //arrSemaroforos tem os X's de onde os semaforos serao colorados
         for (let i = 0; i < arrSemaforos.length; i++) {
@@ -15,6 +16,10 @@ class Pista {
             this.semaforos.push(new Semaforo(ctx, tempoSemaforo[i][0], tempoSemaforo[i][1], true, tempoSemaforo[i][2], semaforoCfg, top - 80));
             this.faixas.push(new Faixa(ctx, semaforoCfg + 40, top, top + 90));
         }
+    }
+
+    atualizar() {
+        this.semaforos.forEach(semaforo => semaforo.atualizar());
     }
 
     desenhar() {
