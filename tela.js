@@ -35,6 +35,13 @@ function roda() {
             left = 0;
             desenha();
         }
+        
+        if (right > 0) {
+            cenario.adiantarEstado(right);
+            right = 0;
+            desenha();
+        }
+        draw.drawText('PAUSED', (LARGURA / 2 - 80), (ALTURA / 2 - 150), undefined, undefined, "30px Arial");
     }
     window.requestAnimationFrame(roda);
 }
@@ -57,12 +64,18 @@ function desenha() {
 
 main();
 
-document.body.addEventListener("mousedown", function() {
-    pause = !pause;
+document.body.addEventListener("mousedown", function(e) {
+    var event = window.event || e;
+    if (event.ctrlKey === true) {
+        cenario.fecharSemaforo(0);
+        pause = false;
+    } else {
+        pause = !pause;
+    }
 });
 
 document.body.addEventListener("keydown", function(e) {
-    var event = window.event ? window.event : e;
+    var event = window.event || e;
     switch(event.keyCode) {
         case 37:
             left++;

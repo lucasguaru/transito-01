@@ -18,6 +18,15 @@ class Semaforo extends Estado {
         this.contTempoVerde = this.tempoAberto * FPS - 1;
     }
 
+    fechar() {
+        if (this.status == 'VERMELHO') {
+            this.contTempoVermelho += FPS; //Adiciona 1 segundo
+        } else if (this.status == 'VERDE') {
+            this.contTempoVerde = this.tempoAberto * FPS - 1;
+            this.status = 'AMARELO';
+        }
+    }
+
     atualizar() {
         if (this.status == 'VERMELHO') {
             if (--this.contTempoVermelho <= 0) {

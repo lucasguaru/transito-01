@@ -24,11 +24,11 @@ class Sensores {
     }
 
     voltarEstado(qtde) {
-        this.sensores.forEach(sensor => sensor.voltarEstado(qtde));
+        this.atualizar();
     }
-    
-    manterEstado() {
-        this.sensores.forEach(sensor => sensor.manterEstado());
+
+    adiantarEstado(qtde) {
+        this.atualizar();
     }
 
     atualizar() {

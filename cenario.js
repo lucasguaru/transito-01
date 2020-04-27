@@ -19,13 +19,26 @@ class Cenario {
         this.sensores2 = new Sensores(ctx, this, this.qtdePistas, 530, 1060, top);
     }
 
+    fecharSemaforo(index) {
+        this.pista.fecharSemaforo(index);
+    }
+
     voltarEstado(qtde) {
         this.pistas.forEach(pista => {
             pista.forEach(carro => carro.voltarEstado(qtde));
         });
+        this.pista.voltarEstado(qtde);
         this.sensores1.voltarEstado(qtde);
         this.sensores2.voltarEstado(qtde);
-        this.pista.voltarEstado(qtde);
+    }
+
+    adiantarEstado(qtde) {
+        this.pistas.forEach(pista => {
+            pista.forEach(carro => carro.adiantarEstado(qtde));
+        });
+        this.pista.adiantarEstado(qtde);
+        this.sensores1.adiantarEstado(qtde);
+        this.sensores2.adiantarEstado(qtde);
     }
 
     getCarros(x0, x1) {
