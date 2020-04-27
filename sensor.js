@@ -20,7 +20,7 @@ class Sensor extends Estado {
     }
 
     atualizar() {       
-        this.manterEstado(FPS);
+        this.manterEstado();
     }
 
     desenhar() {

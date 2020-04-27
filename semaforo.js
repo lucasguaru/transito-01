@@ -44,7 +44,7 @@ class Semaforo extends Estado {
                 this.status = 'AMARELO';
             }
         }
-        this.manterEstado(FPS);
+        this.manterEstado();
     }
 
     desenhar() {

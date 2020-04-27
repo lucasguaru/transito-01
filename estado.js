@@ -8,6 +8,9 @@ class Estado {
     }
 
     manterEstado(qtdeFrames) {
+        if (qtdeFrames == undefined) {
+            qtdeFrames = FPS / 2;
+        }
         if (qtdeFrames > 0 && this.estadosFuturo.length > 0) {            
             this.estadosFuturo = [];
         }

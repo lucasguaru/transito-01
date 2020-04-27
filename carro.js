@@ -73,14 +73,16 @@ class Carro extends Estado {
             this.speed = this.maxSpeed;
         }
         this.left += this.speed;
-        if (this.left > LARGURA - 70) {
+        if (this.left > LARGURA + 300) {
             this.cenario.removerCarro(this, this.idPista);
         }
-        this.manterEstado(FPS);
+        this.manterEstado();
     }
 
     desenhar() {
-        draw.drawCar(this.left, this.top, this.width, this.height, this.cor, this.speed, this.dist);
+        if (this.left < LARGURA - 70) {
+            draw.drawCar(this.left, this.top, this.width, this.height, this.cor, this.speed, this.dist);
+        }
         // draw.drawRect(this.left, this.top, this.width, this.height, 1, this.cor, this.cor);
     }
 
