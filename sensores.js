@@ -9,6 +9,7 @@ class Sensores {
         this.graficoVelocidadeMedia = graficoVelocidadeMedia;
         if (graficoVelocidadeMedia) {
             this.arrayVeloMedia = [];
+            this.widthGrafico = 800;
         }
         this.velocidadeMedia = 0;
         this.framesVeloMedia = 0;
@@ -38,7 +39,7 @@ class Sensores {
     salvarGraficoVelocidadeMedia(velocidadeMedia) {
         if (this.graficoVelocidadeMedia) {
             this.arrayVeloMedia.push(velocidadeMedia);
-            if (this.arrayVeloMedia.length > 250) {
+            if (this.arrayVeloMedia.length > this.widthGrafico) {
                 this.arrayVeloMedia = this.arrayVeloMedia.slice(1);
             }
         }
@@ -109,7 +110,7 @@ class Sensores {
 
             draw.drawText('Velocidade Média Faixa', x + 120, y - 80);
             draw.drawLine(x, y - 75, x, y + 2, 1, 'white'); // eixo y
-            draw.drawLine(x, y + 2, x + 250, y, 1, 'white'); // eixo x
+            draw.drawLine(x, y + 2, x + this.widthGrafico, y, 1, 'white'); // eixo x
 
             if (this.arrayVeloMedia.length > 0) {
                 for (let i = 0; i < this.arrayVeloMedia.length; i++) {
