@@ -17,7 +17,6 @@ class Carro extends Estado {
         this.speed = 0;
         this.aceleration = 0.06;
         this.maxSpeed = maxSpeed + (maxSpeed * Math.random());
-        this.estados = [];
     }
 
     atualizar() {
